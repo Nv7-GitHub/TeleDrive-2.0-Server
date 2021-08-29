@@ -33,27 +33,13 @@
  */
 
 const fs = require('fs');
-const https = require('https');
 const WebSocket = require('ws');
 
 // based on examples at https://www.npmjs.com/package/ws 
 const WebSocketServer = WebSocket.Server;
 
-// If you want, please create your own certificates for TLS (not needed for server to work)
-const serverConfig = {
-  // key: fs.readFileSync('../key.pem'),
-  // cert: fs.readFileSync('../cert.pem'),
-};
-
-const handleRequest = function (request, response) {
-  // Not needed in this case. But would be used if you are serving a website to client.
-};
-
-const httpsServer = https.createServer(serverConfig, handleRequest);
-httpsServer.listen(process.env.TELEDRIVE_PORT);
-
 // Create a server for handling websocket calls
-const wss = new WebSocketServer({ server: httpsServer });
+const wss = new WebSocketServer({ port: process.env.TELEDRIVE_PORT });
 
 wss.on('connection', function (ws, req) {
   var isFirstMessageFromClient = true;
