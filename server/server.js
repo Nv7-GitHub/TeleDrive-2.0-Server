@@ -31,7 +31,7 @@
  * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-const HTTPS_PORT = 443; //default port for https is 443
+
 const fs = require('fs');
 const https = require('https');
 const WebSocket = require('ws');
@@ -50,7 +50,7 @@ const handleRequest = function (request, response) {
 };
 
 const httpsServer = https.createServer(serverConfig, handleRequest);
-httpsServer.listen(HTTPS_PORT);
+httpsServer.listen(process.env.TELEDRIVE_PORT);
 
 // Create a server for handling websocket calls
 const wss = new WebSocketServer({ server: httpsServer });
